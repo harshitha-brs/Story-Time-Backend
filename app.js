@@ -16,7 +16,7 @@ import Category from "./src/models/categoryModel.js";
 dotenv.config();
 connectDB();
 
-const port = process.env.PORT || 5000;
+const port = process.env;
 const app = express();
 
 app.use(cors())
