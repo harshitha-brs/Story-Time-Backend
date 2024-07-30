@@ -16,7 +16,7 @@ import Category from "./src/models/categoryModel.js";
 dotenv.config();
 connectDB();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const app = express();
 
 app.use(cors())
@@ -73,6 +73,5 @@ app.post("/languages", async (req, res) => {
 
 app.use(notFound);
 app.use(errorHandler);
-console.log('port number')
-console.log(port)
+
 app.listen(port, console.log(`Server started on port ${port}`));
