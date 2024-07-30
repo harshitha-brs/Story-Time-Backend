@@ -74,4 +74,4 @@ app.post("/languages", async (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(port, console.log(`Server started on port ${port}`));
