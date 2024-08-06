@@ -353,22 +353,26 @@ const forgotPassword = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   const { token } = req.params;
   const { password } = req.body;
+
   if (!token) {
     const err = new Error("Token is required");
     err.statusCode = 400;
     return next(err);
   }
+
   if (!password) {
     const err = new Error("Password is required");
     err.statusCode = 400;
     return next(err);
   }
+
   try {
-    // find the user by token
+    // Find the user by token and ensure the token has not expired
     const user = await User.findOne({
       reset_password_token: token,
-      reset_password_epxpires: { $gt: Date.now() },
+      reset_password_expires: { $gt: Date.now() }, // Corrected the typo here
     });
+
     if (!user) {
       const err = new Error(
         "Password reset link is invalid or expired, please try again"
@@ -376,11 +380,14 @@ const resetPassword = async (req, res, next) => {
       err.statusCode = 400;
       return next(err);
     }
-    // user found - hash password
+
+    // User found - hash the new password
     const hashedPassword = await bcrypt.hash(password, 10);
-    (user.password = hashedPassword), (user.reset_password_token = undefined);
-    user.reset_password_epxpires = undefined;
+    user.password = hashedPassword;
+    user.reset_password_token = undefined;
+    user.reset_password_expires = undefined;
     await user.save();
+
     res.status(200).json({
       message: "Password updated successfully, please login to continue",
     });
