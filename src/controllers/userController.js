@@ -395,21 +395,6 @@ const resetPassword = async (req, res, next) => {
     return next(error);
   }
 };
-    // User found - hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    user.password = hashedPassword;
-    user.reset_password_token = undefined;
-    user.reset_password_expires = undefined;
-    await user.save();
-
-    res.status(200).json({
-      message: "Password updated successfully, please login to continue",
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
 
 const saveSpotifyStory = async (req, res, next) => {
   const { storyId } = req.body;
