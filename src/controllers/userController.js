@@ -326,7 +326,7 @@ const forgotPassword = async (req, res, next) => {
     );
     // save token in DB
     user.reset_password_token = token;
-    user.reset_password_epxpires = Date.now() + 7200000;
+    user.reset_password_expires = Date.now() + 7200000;
     await user.save();
     // send mail
     const verificationEmailResponse = await sendPasswordResetLink(
