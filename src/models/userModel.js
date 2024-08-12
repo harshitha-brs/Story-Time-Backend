@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema(
     verify_token: { type: String }, //verifyToken with link from webiste
     verify_token_expires: Date,
     reset_password_token: { type: String }, //resetPasswordToken with link from webiste
-    reset_password_epxpires: Date,
+    reset_password_expires: Date,
     status: {type: Boolean, default : true},
   },
   {
